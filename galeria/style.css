@@ -1,0 +1,18 @@
+.galeria-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.foto-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Recorta la imagen para que todas midan lo mismo sin deformarse */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.foto-card img:hover {
+  transform: scale(1.05); /* Un pequeño efecto visual al pasar el mouse */
+}
