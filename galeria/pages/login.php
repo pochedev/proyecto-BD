@@ -1,7 +1,6 @@
-<link rel="stylesheet" href="login.css">
 <?php
 session_start();
-include 'db.php';
+include '../scripts/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = mysqli_real_escape_string($conexion, $_POST['usuario']);
@@ -39,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 <head>
     <title>Login - Galería de Arte</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
     <div class="form-container">

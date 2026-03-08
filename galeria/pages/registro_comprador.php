@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="login.css">
+
 <?php
-include 'db.php';
+include '../scripts/db.php';
 
 if (isset($_POST['registrar'])) {
     $cedula = mysqli_real_escape_string($conexion, $_POST['cedula']);
@@ -26,6 +26,9 @@ if (isset($_POST['registrar'])) {
 }
 ?>
 
+<head>
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
 <form method="POST">
     <h2>Registro de Comprador</h2>
     <input type="text" name="cedula" placeholder="Cédula" required>

@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="login.css">
 <?php
-include 'db.php';
+include '../scripts/db.php';
 
 if (isset($_POST['registrar'])) {
     $cedula = mysqli_real_escape_string($conexion, $_POST['cedula']);
@@ -16,7 +15,7 @@ if (isset($_POST['registrar'])) {
     // Foto de perfil
     $foto_nombre = $_FILES['foto']['name'];
     $foto_temp = $_FILES['foto']['tmp_name'];
-    $ruta_destino = "img/perfiles/" . uniqid() . "_" . $foto_nombre;
+    $ruta_destino = "../resources/perfiles/" . uniqid() . "_" . $foto_nombre;
 
     if (move_uploaded_file($foto_temp, $ruta_destino)) {
         // Asegúrate de que los nombres de las columnas coincidan 
@@ -33,6 +32,10 @@ if (isset($_POST['registrar'])) {
     }
 }
 ?>
+
+<head>
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
 <form method="POST" enctype="multipart/form-data" class="form-grid">
     <h2>Registro de Artista</h2>
     <input type="text" name="cedula" placeholder="Cédula" required>
