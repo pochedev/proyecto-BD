@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tablas = [
         'artista' => 'id_artista',
         'comprador' => 'id_comprador',
-        'empleado' => 'CI'
+        'empleado' => 'id_empleado'
     ];
 
     $encontrado = false;
