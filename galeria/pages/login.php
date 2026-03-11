@@ -21,11 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($fila = mysqli_fetch_assoc($res)) {
             if (password_verify($pass, $fila['password'])) {
+                // ... (dentro del if de password_verify)
                 $_SESSION['id'] = $fila[$id_col];
-                $_SESSION['rol'] = ($tabla == 'empleado') ? $fila['puesto'] : $tabla;
+                $rolFinal = ($tabla == 'empleado') ? $fila['puesto'] : $tabla;
+                $_SESSION['rol'] = $rolFinal;
                 $_SESSION['nombre'] = $fila['nombre'];
-                
-                header("Location: index.php"); // Redirige al home o panel
+
+                // Redirección inteligente basada en el ROL
+                if ($rolFinal === 'admin') {
+                    header("Location: admin_panel.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit;
             }
         }
