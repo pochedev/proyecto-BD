@@ -2,57 +2,46 @@
 session_start();
 include '../scripts/db.php';
 
-// Seguridad: Solo entrar si es Admin
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
-$seccion = isset($_GET['view']) ? $_GET['view'] : 'dashboard';
+$view = $_GET['view'] ?? 'dashboard';
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Panel de Control - Administrador</title>
+    <title>Panel Admin</title>
     <link rel="stylesheet" href="../styles/style.css">
-    <style>
-        .admin-layout { display: flex; min-height: 100vh; }
-        .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
-        .sidebar h2 { border-bottom: 1px solid #34495e; padding-bottom: 10px; }
-        .sidebar ul { list-style: none; padding: 0; }
-        .sidebar ul li { padding: 10px 0; }
-        .sidebar a { color: #ecf0f1; text-decoration: none; }
-        .sidebar a:hover { color: #3498db; }
-        .main-content { flex: 1; padding: 40px; background: #f9f9f9; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background: #34495e; color: white; }
-    </style>
 </head>
-<body>
-    <div class="admin-layout">
-        <aside class="sidebar">
-            <h2>Gestión Museo</h2>
+<body class="admin-body">
+    <div class="admin-container">
+        <nav class="sidebar">
+            <h3>Menú Admin</h3>
             <ul>
-                <li><a href="admin_panel.php?view=dashboard">📊 Dashboard</a></li>
-                <li><a href="admin_panel.php?view=obras">🖼️ Gestionar Obras (CRUD)</a></li>
-                <li><a href="admin_panel.php?view=usuarios">👥 Gestionar Usuarios</a></li>
-                <li><a href="admin_panel.php?view=reportes">💰 Reportes Financieros</a></li>
-                <li><hr></li>
-                <li><a href="index.php">🏠 Volver a Galería</a></li>
-                <li><a href="../scripts/logout.php">🚪 Cerrar Sesión</a></li>
+                <li><a href="admin_panel.php?view=dashboard">Inicio</a></li>
+                <li><a href="admin_panel.php?view=crud">Gestión (CRUD)</a></li>
+                <li><a href="admin_panel.php?view=facturacion">Facturación</a></li>
+                <li><a href="admin_panel.php?view=rep_obras">Obras Vendidas</a></li>
+                <li><a href="admin_panel.php?view=rep_facturacion">Resumen Facturación</a></li>
+                <li><a href="admin_panel.php?view=rep_membresias">Membresías</a></li>
+                <li><a href="../scripts/logout.php">Salir</a></li>
             </ul>
-        </aside>
+        </nav>
 
-        <main class="main-content">
-            <?php 
-                // Cargamos la sección correspondiente
-                if($seccion == 'obras') include 'admin_obras.php';
-                elseif($seccion == 'reportes') include 'admin_reportes.php';
-                else echo "<h1>Bienvenido, " . $_SESSION['nombre'] . "</h1><p>Selecciona una opción del menú lateral.</p>";
+        <section class="content">
+            <?php
+            switch ($view) {
+                case 'crud': include 'admin_crud.php'; break;
+                case 'facturacion': include 'admin_facturacion.php'; break;
+                case 'rep_obras': include 'admin_rep_obras.php'; break;
+                case 'rep_facturacion': include 'admin_rep_facturacion.php'; break;
+                case 'rep_membresias': include 'admin_rep_membresias.php'; break;
+                default: echo "<h2>Bienvenido al Panel de Control</h2>"; break;
+            }
             ?>
-        </main>
+        </section>
     </div>
 </body>
 </html>

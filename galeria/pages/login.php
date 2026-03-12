@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($fila = mysqli_fetch_assoc($res)) {
             if (password_verify($pass, $fila['password'])) {
-                // ... (dentro del if de password_verify)
-                $_SESSION['id'] = $fila[$id_col];
+                $_SESSION['id'] = $fila['id_empleado'];
                 $rolFinal = ($tabla == 'empleado') ? $fila['puesto'] : $tabla;
                 $_SESSION['rol'] = $rolFinal;
                 $_SESSION['nombre'] = $fila['nombre'];
@@ -57,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit">Entrar</button>
         </form>
-        <p>¿No tienes cuenta? Regístrate como <a href="registro_artista.php">Artista</a> o <a href="registro_comprador.php">Comprador</a></p>
+        <p>¿No tienes cuenta? Regístrate como <a href="registro_artista.php">Artista</a> o <a href="registro_comprador.php">Comprador</a> o <a href="registro_empleado.php">Empleado</a></p>
     </div>
 </body>
 </html>
